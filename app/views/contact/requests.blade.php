@@ -42,7 +42,7 @@
 <br>
 <div class='panel'>
          <div class='panel-heading c-list'>
-                    <span class='title'>These people want to be your friends, are you agree <i class='glyphicon glyphicon-question-sign'></i></span>
+                    <span class='title'> <?php echo Auth::user()->usrs_alias; ?>, these people want to be your friends, are you agree <i class='glyphicon glyphicon-question-sign'></i></span>
                     <hr>
                 </div>
                 <ul class='list-group' id='contact-list' >

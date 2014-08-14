@@ -42,7 +42,7 @@
 <br>
 <div class='panel'>
          <div class='panel-heading c-list'>
-                    <span class='title'><?php echo Auth::user()->usrs_alias; ?>, know new people from microblogging... <i class='glyphicon glyphicon-thumbs-up'></i></span>
+                    <span class='title'><?php echo Auth::user()->usrs_alias; ?>, these are the users that you have blocked... <i class='glyphicon glyphicon-ban-circle'></i></span>
                     <hr>
                 </div>
                 <ul class='list-group' id='contact-list' >
@@ -64,11 +64,11 @@
                             echo"<span class='visible-xs'> <span class='text-muted'>$row->email</span><br/></span>";
                             
                         echo"</div>";
-                        echo"<form action='follow' method='post' enctype='multipart/form-data'role='form'>";
+                        echo"<form action='unlock' method='post' enctype='multipart/form-data'role='form'>";
                           echo"<input name='aliasDest' type='hidden' value='$row->alias'/>";
                           echo"<div class='action'>";
                           echo"<button type='submit' class='btn btn-success btn-xs  pull-right'>";
-                          echo"Follow <span class='glyphicon glyphicon-flag'>  </span>";
+                          echo"unlock <span class='glyphicon glyphicon-ok-circle'>  </span>";
                           echo"</button>";
                           echo"</form>";
                         echo"<div class='clearfix'></div>";
@@ -82,7 +82,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#people').removeClass("people");
-        $('#people').addClass("active");
+        $('#lockedUsers').removeClass("lockedUsers");
+        $('#lockedUsers').addClass("active");
     });
 </script>

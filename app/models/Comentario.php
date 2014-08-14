@@ -12,7 +12,8 @@ class Comentario extends Eloquent
     public static function comments() {
     $alias = Auth::user()->usrs_alias;
     return DB::select("
-   select comments_alias alias, comments_descrip commentario, comments_fecha fecha, usrs_avatar avatar 
+   
+select comments_alias alias, comments_descrip commentario, comments_fecha fecha, usrs_avatar avatar 
     from mb_mnt_comments cmts, users usrs
     where cmts.comments_alias= '$alias'
     and usrs.usrs_alias='$alias'
@@ -23,13 +24,17 @@ class Comentario extends Eloquent
     and cnts.contacts_alias_bloq=0
     and cnts.contacts_alias_seg=1
     and cnts.contacts_alias_orig='$alias'
+    and '$alias' in (select usrs_alias from users )
     and usrs.usrs_alias='$alias'
     union
     select comments_alias alias, comments_descrip commentario, comments_fecha fecha , usrs_avatar avatar 
        from mb_mnt_comments cmts, users usrs
-       where lower(cmts.comments_descrip)like'$alias'
+       where lower(cmts.comments_descrip)like'%$alias%'
+       and '$alias' in (select usrs_alias from users )
        and usrs.usrs_alias='$alias'
-    order by fecha desc"); 
+    order by fecha DESC
+   
+     "); 
    }
 
     public static function deleteComment($comment) {
@@ -43,10 +48,8 @@ class Comentario extends Eloquent
 
    public static function hashtagSearched($hashtag) {
     return DB::select("
-    select comments_alias alias, comments_descrip commentario, comments_fecha fecha 
-   from mb_mnt_comments 
-   where lower(comments_descrip)like lower('%$hashtag%')
-    order by fecha desc");
+    select alias,commentario,fecha  from  v_comentarios
+      where hastag in (?) order by fecha desc" , array($hashtag));
    }
 }
 

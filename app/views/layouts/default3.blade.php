@@ -13,7 +13,7 @@
 <body>
  <style type="text/css"> 
       body{ 
-      background-image: url('http://images2.layoutsparks.com/1/211297/blue-grey-wall-paper.gif'); no-repeat center center fixed;
+      background-image: url('images/microblogging.gif'); no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

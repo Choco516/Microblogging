@@ -75,12 +75,63 @@ class UserController extends BaseController
         return Redirect::to('microblogging');
 
     }
+
+
+     public function loginFb()
+    {
+        $facebook = new Facebook(Config::get('facebook'));
+        $params = array(
+                        'redirect_uri' => url('FbCallback'),
+                        'scope' => 'email',
+                        );
+        return Redirect::to($facebook->getLoginUrl($params));
+    }
+
+    public function loginFbCallback()
+    {
+        $code = Input::get('code');
+        $user = new User();
+        $userdata = array('' => "" );
+        if (strlen($code) == 0) return Redirect::to('/')->with('message', 'There was an error communicating with Facebook');
+            $facebook = new Facebook(Config::get('facebook'));
+            $uid = $facebook->getUser();
+
+        if ($uid == 0) return Redirect::to('/')->with('message', 'There was an error');
+            $me = $facebook->api('/me');
+            $profile = User::findUser($me['email']);
+            $userdata = array(
+                'email'     =>$me['email'],
+                'password'  => 1234
+            );
+
+        if (empty($profile)) {
+            $user->usrs_nombre = $me['first_name'];
+            $user->usrs_apellidos = $me['last_name'];
+            $user->email = $me['email'];
+            $user->usrs_avatar = 'default.jpg';
+            $user->usrs_alias = '@'.$me['first_name'];
+            $user->password = Hash::make('1234');
+            $user->usrs_fecha_ingreso = '10/08/2014';
+            $user->usrs_estado = 1;
+            $user->save();
+            $userdata = array(
+                'email'     =>$user->email,
+                'password'  => 1234
+            );
+            }
+
+        if (Auth::attempt($userdata)) {
+                return Redirect::to('microblogging');
+             }
+        return Redirect::to('profile')->withErrors(array('invalid_credentials' => 'Acceso Denegado'));
+    }
    
+
 
     public function isLogged()
     {
         if (Auth::guest()) {
-            return Redirect::to('index');
+            return Redirect::to('login');
         }
     }
 

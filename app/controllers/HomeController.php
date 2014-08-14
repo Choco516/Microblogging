@@ -21,11 +21,31 @@ class HomeController extends BaseController {
 		return View::make('profile.edit')->with('usuario',$usuario);
 	}
 
+	public function changePassword()
+	{
+		$usuario = User::datosUsr();
+		return View::make('microblogging.changePassword')->with('usuario',$usuario);
+	}
+
 	public function update()
 	{
 			$photo = Input::file('avatar');
+			if (empty($photo))
+				{
+					$alias = Auth::user()->usrs_alias;
+					$user = User::find($alias);
+					$user->usrs_nombre = Input::get('nombre');
+					$user->usrs_apellidos = Input::get('apellido');
+					$user->usrs_telefono = Input::get('telefono');
+					$user->usrs_direccion = Input::get('direccion');
+					$user->usrs_biografia = Input::get('biografia');
+					$user->save();
+					return Redirect::to('profile');
+				}else{
+
 			$name = $photo->getClientOriginalName();
 			$extension=$photo->getClientOriginalExtension();
+
 			if($extension=="jpg")
 			{
 				$file = public_path(). "/images";
@@ -41,10 +61,6 @@ class HomeController extends BaseController {
 				$user->save();
 				return Redirect::to('profile');
 				}
-			else
-			{
-				Session::flash('message','Incompatible file, please select a file with jpg extension');
-				Session::flash('class','danger');
 			}
 	}
 
@@ -52,11 +68,10 @@ class HomeController extends BaseController {
 	{
 		 $fecha = Input::get('fecha'); 
 		 $mensage = Input::get('mensage'); 
-
 		 $comentario = new Comentario;
 		 $comentario->comments_alias = Auth::user()->usrs_alias;
-		 $comentario->comments_descrip = $mensage; 
-		 $comentario->comments_fecha = $fecha; 
+		 $comentario->comments_descrip = $mensage;
+		 $comentario->comments_fecha = $fecha;
 		 $comentario->save();
 		return Redirect::to('microblogging');
 	}
@@ -79,7 +94,7 @@ class HomeController extends BaseController {
 	{
 		$aliasDest = Input::get('aliasDest');
 		Contact::followUser($aliasDest);
-		return Redirect::to('microblogging');
+		return Redirect::to('people');
 	}
 
 	public function unlock()
@@ -94,7 +109,7 @@ class HomeController extends BaseController {
 		$aliasDest = Input::get('aliasDest');
 
 		Contact::acceptRequest($aliasDest);
-		Contact::insertPostAcept($aliasDest);
+		/*Contact::insertPostAcept($aliasDest);*/
 		return Redirect::to('requests');
 	}
 
@@ -119,6 +134,12 @@ class HomeController extends BaseController {
 		return View::make('contact.index')->with('usuario',$usuario);
 	}
 
+	public function lockedUsers()
+	{
+		$usuario = User::datosBloq();
+		return View::make('contact.lockedUsers')->with('usuario',$usuario);
+	}
+
 	public function requests()
 	{
 		$usuario = User::datosSolic();
@@ -138,7 +159,7 @@ class HomeController extends BaseController {
 		User::deleteUserAliasOrig();
 		User::deleteUserCommentsAlias();
 		User::deleteUserCommentsAliasTag();
-		return View::make('microblogging.login');
+		return Redirect::to('/');
 	}
 	
 }

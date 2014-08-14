@@ -21,6 +21,10 @@ Route::get('profile', 'HomeController@profile');
 Route::get('edit', 'HomeController@edit');
 Route::get('people', 'HomeController@people');
 Route::get('requests', 'HomeController@requests');
+Route::get('lockedUsers', 'HomeController@lockedUsers');
+Route::get('changePassword', 'HomeController@changePassword');
+
+
 
 
 Route::get('/', 'UserController@principal');
@@ -43,3 +47,6 @@ Route::post('deleteUser', 'HomeController@deleteUser');
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
+
+Route::get('loginFb','UserController@loginFb');
+Route::get('FbCallback', 'UserController@loginFbCallback');
