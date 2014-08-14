@@ -39,16 +39,16 @@ class UserController extends BaseController
     {
 
         $rules = $this->validationRules(); 
-    $rules['password'] = 'required|alphaNum|min:3|Confirmed';
-     $rules['password_confirmation'] = 'required|alphaNum|min:3'; 
-     $validator = Validator::make(Input::all(), $rules);
-      // if the validator fails, redirect back to the form 
-      if ($validator->fails()) { return Redirect::to('/') ->withErrors($validator) 
-      // send back all errors to the login form 
-      ->withInput(Input::except('password')); 
-      // send back the input (not the password) so that we can repopulate the form 
-} 
-        
+        $rules['password'] = 'required|alphaNum|min:3|Confirmed';
+        $rules['password_confirmation'] = 'required|alphaNum|min:3'; 
+        $validator = Validator::make(Input::all(), $rules);
+          // if the validator fails, redirect back to the form 
+          if ($validator->fails()) { return Redirect::to('/') ->withErrors($validator) 
+          // send back all errors to the login form 
+          ->withInput(Input::except('password')); 
+          // send back the input (not the password) so that we can repopulate the form 
+        }
+
         $email = Input::get('email');
         $password = Input::get('password');
         $firstname = Input::get('firstname');
@@ -73,7 +73,6 @@ class UserController extends BaseController
         $user->save();
         Auth::attempt(array('email' => $email, 'password' => $password));
         return Redirect::to('microblogging');
-
     }
 
 
@@ -145,6 +144,7 @@ class UserController extends BaseController
     {
         return view::make('microblogging.login');
     }
+
 
     public function registeruser()
     {

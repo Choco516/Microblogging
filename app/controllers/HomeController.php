@@ -2,6 +2,14 @@
 
 class HomeController extends BaseController {
 
+	private function validationRules()
+    {
+        // validate the info, create rules for the inputs
+        return array(
+            'email'    => 'required|email', // make sure the email is an actual email
+            'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
+        );
+    }
 
 	public function Index()
 	{
@@ -21,10 +29,31 @@ class HomeController extends BaseController {
 		return View::make('profile.edit')->with('usuario',$usuario);
 	}
 
+	public function passwordForgotten()
+	{
+		return View::make('microblogging.changePassword');
+	}
+
 	public function changePassword()
 	{
-		$usuario = User::datosUsr();
-		return View::make('microblogging.changePassword')->with('usuario',$usuario);
+		$rules = $this->validationRules(); 
+        $rules['password'] = 'required|alphaNum|min:3|Confirmed';
+        $rules['password_confirmation'] = 'required|alphaNum|min:3'; 
+        $validator = Validator::make(Input::all(), $rules);
+          // if the validator fails, redirect back to the form 
+          if ($validator->fails()) { return Redirect::to('/') ->withErrors($validator) 
+          // send back all errors to the login form 
+          ->withInput(Input::except('password')); 
+          // send back the input (not the password) so that we can repopulate the form 
+        } 
+		$email = Input::get('email');
+		$password = Input::get('password');
+		/*Contact::changePassword($email);*/
+
+		$user = User::find($email);
+		$user->password = $password;
+		$user->save();
+		return Redirect::to('/');
 	}
 
 	public function update()
@@ -161,5 +190,10 @@ class HomeController extends BaseController {
 		User::deleteUserCommentsAliasTag();
 		return Redirect::to('/');
 	}
+
+	public function login()
+    {
+        return view::make('microblogging.login');
+    }
 	
 }

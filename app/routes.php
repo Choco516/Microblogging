@@ -16,20 +16,25 @@
 	return View::make('hello');
 });*/
 /*Route::controller('home', 'HomeController');*/
-Route::get('microblogging', 'HomeController@index');
+Route::group(array('before' => 'auth'), function()
+{
+ 
+  Route::get('microblogging', 'HomeController@index');
 Route::get('profile', 'HomeController@profile');
 Route::get('edit', 'HomeController@edit');
 Route::get('people', 'HomeController@people');
 Route::get('requests', 'HomeController@requests');
 Route::get('lockedUsers', 'HomeController@lockedUsers');
-Route::get('changePassword', 'HomeController@changePassword');
+Route::get('logout', 'UserController@logout');
 
+});
 
-
-
+Route::get('login', 'HomeController@login');
+Route::get('passwordForgotten', 'HomeController@passwordForgotten');
 Route::get('/', 'UserController@principal');
 Route::get('register', 'UserController@registeruser');
-Route::get('logout', 'UserController@logout');
+Route::get('loginFb','UserController@loginFb');
+Route::get('FbCallback', 'UserController@loginFbCallback');
 
 
 Route::post('update', 'HomeController@update');
@@ -43,10 +48,7 @@ Route::post('decline', 'HomeController@decline');
 Route::post('deletecomment', 'HomeController@deletecomment');
 Route::post('hashtags', 'HomeController@hashtags');
 Route::post('deleteUser', 'HomeController@deleteUser');
-
-
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
+Route::post('changePassword', 'HomeController@changePassword');
 
-Route::get('loginFb','UserController@loginFb');
-Route::get('FbCallback', 'UserController@loginFbCallback');

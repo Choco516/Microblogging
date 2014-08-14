@@ -45,7 +45,7 @@
                     <div class="form-group"> 
                         <div class="col-sm-offset-3 col-sm-9">
                             <div class="checkbox">
-                                <label style="color:white;"> Forgot you password? <a href="/changePassword
+                                <label style="color:white;"> Forgot you password? <a href="/passwordForgotten
 "> click here</a></label>
                             </div> 
                         </div> 

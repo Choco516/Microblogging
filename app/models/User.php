@@ -133,5 +133,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		where email = '$email'");
 	 }
 
+	public static function changePassword($email) {
+    $aliasOrig =  Auth::user()->usrs_alias;
+    /*Preguntarle al profe si cuando se utilizaun 1 o un 0 tambien debe hacerse en variable*/
+	return DB::select("update mb_mnt_contacts set contacts_alias_bloq=1
+    where contacts_alias_orig=? and contacts_alias_dest=?", array($aliasOrig, $aliasDest));
+    }
+
 
 }
