@@ -3,7 +3,6 @@
 
 <script type="text/javascript"
     src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="js/functions.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
                 $(".panel").fadeIn('slow');
@@ -29,9 +28,6 @@
       h1 {font-family: "Rockwell", serif;font-weight: bold;font-size: 100pt;
       }
     </style>
-    <br>
-    <br>
-    <br>
 
 <div class="panel">
   <br>

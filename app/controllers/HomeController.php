@@ -51,57 +51,56 @@ class HomeController extends BaseController {
 		/*Contact::changePassword($email);*/
 
 		$user = User::find($email);
-		$user->password = $password;
+		$user->password = Hash::make($password);
 		$user->save();
 		return Redirect::to('/');
 	}
 
 	public function update()
 	{
-			$photo = Input::file('avatar');
-			if (empty($photo))
-				{
-					$alias = Auth::user()->usrs_alias;
-					$user = User::find($alias);
-					$user->usrs_nombre = Input::get('nombre');
-					$user->usrs_apellidos = Input::get('apellido');
-					$user->usrs_telefono = Input::get('telefono');
-					$user->usrs_direccion = Input::get('direccion');
-					$user->usrs_biografia = Input::get('biografia');
-					$user->save();
-					return Redirect::to('profile');
-				}else{
-
-			$name = $photo->getClientOriginalName();
-			$extension=$photo->getClientOriginalExtension();
-
-			if($extension=="jpg")
+		$photo = Input::file('avatar');
+		if (empty($photo))
 			{
-				$file = public_path(). "/images";
-				$upload = $photo->move($file,$name);
 				$alias = Auth::user()->usrs_alias;
 				$user = User::find($alias);
 				$user->usrs_nombre = Input::get('nombre');
 				$user->usrs_apellidos = Input::get('apellido');
 				$user->usrs_telefono = Input::get('telefono');
 				$user->usrs_direccion = Input::get('direccion');
-				$user->usrs_avatar = $name;
 				$user->usrs_biografia = Input::get('biografia');
 				$user->save();
 				return Redirect::to('profile');
+			}else
+			{
+				$name = $photo->getClientOriginalName();
+				$extension=$photo->getClientOriginalExtension();
+				if($extension=="jpg")
+				{
+					$file = public_path(). "/images";
+					$upload = $photo->move($file,$name);
+					$alias = Auth::user()->usrs_alias;
+					$user = User::find($alias);
+					$user->usrs_nombre = Input::get('nombre');
+					$user->usrs_apellidos = Input::get('apellido');
+					$user->usrs_telefono = Input::get('telefono');
+					$user->usrs_direccion = Input::get('direccion');
+					$user->usrs_avatar = $name;
+					$user->usrs_biografia = Input::get('biografia');
+					$user->save();
+					return Redirect::to('profile');
 				}
 			}
 	}
 
 	public function hum()
 	{
-		 $fecha = Input::get('fecha'); 
-		 $mensage = Input::get('mensage'); 
-		 $comentario = new Comentario;
-		 $comentario->comments_alias = Auth::user()->usrs_alias;
-		 $comentario->comments_descrip = $mensage;
-		 $comentario->comments_fecha = $fecha;
-		 $comentario->save();
+		$fecha = Input::get('fecha'); 
+		$mensage = Input::get('mensage'); 
+		$comentario = new Comentario;
+		$comentario->comments_alias = Auth::user()->usrs_alias;
+		$comentario->comments_descrip = $mensage;
+		$comentario->comments_fecha = $fecha;
+		$comentario->save();
 		return Redirect::to('microblogging');
 	}
 
@@ -195,5 +194,4 @@ class HomeController extends BaseController {
     {
         return view::make('microblogging.login');
     }
-	
 }

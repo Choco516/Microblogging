@@ -2,7 +2,6 @@
 
 <script type="text/javascript"
     src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="js/functions.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
                 $(".panel").fadeIn('slow');
@@ -28,9 +27,6 @@
       h1 {font-family: "Rockwell", serif;font-weight: bold;font-size: 100pt;
       }
     </style>
-    <br>
-    <br>
-    <br>
 
 <div class="panel">
   <br>
@@ -101,19 +97,11 @@
                     echo"<img alt='User Pic' src='images/$row->avatar' class='circular2'> ";
                     echo"<input id='filename' name='avatar' type='file'/>";
                   echo"</div>";
-
-        
-      
     echo"</div><!-- /.col-lg-12 -->";
-
 echo"</div><!-- /.row -->";
-
-                    
                   echo"</div>";
-
                 echo"</div>";
                 echo"<div class='panel-footer' style='background-color: #3355FE;'>";
-
                         echo"<input type='submit' value='Save changes' <a  type='submit' class='btn btn-sm btn-success'><i class='glyphicon glyphicon-edit'></i></a>";
                         echo"<span class='pull-right'>";
                             echo"<i class='glyphicon glyphicon-remove'></i><a href='profile' type='button'class='btn btn-sm btn-danger'>Discard changes</a>";
@@ -125,9 +113,6 @@ echo"</div><!-- /.row -->";
 
                 }
                 ?>
-      @if(Session::has('message'))
-        <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
-      @endif
 </div>
 
 <script type="text/javascript">

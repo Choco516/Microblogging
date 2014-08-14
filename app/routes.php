@@ -18,14 +18,14 @@
 /*Route::controller('home', 'HomeController');*/
 Route::group(array('before' => 'auth'), function()
 {
- 
-  Route::get('microblogging', 'HomeController@index');
+Route::get('microblogging', 'HomeController@index');
 Route::get('profile', 'HomeController@profile');
 Route::get('edit', 'HomeController@edit');
 Route::get('people', 'HomeController@people');
 Route::get('requests', 'HomeController@requests');
 Route::get('lockedUsers', 'HomeController@lockedUsers');
 Route::get('logout', 'UserController@logout');
+
 
 });
 

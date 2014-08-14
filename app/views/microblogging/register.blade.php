@@ -1,7 +1,6 @@
 @extends('layouts.default3')
 <script type="text/javascript"
     src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="js/functions.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
                 $(".panel").fadeIn('slow');
@@ -70,5 +69,4 @@
                </div>
             </form>
           </div>
-
 </div>

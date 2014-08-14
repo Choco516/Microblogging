@@ -2,7 +2,6 @@
 
 class UserController extends BaseController
 {
-
     private function validationRules()
     {
         // validate the info, create rules for the inputs
@@ -14,10 +13,10 @@ class UserController extends BaseController
 
     public function login()
     {
-      $rules = $this->validationRules();
-      $validator = Validator::make(Input::all(), $rules);
+        $rules = $this->validationRules();
+        $validator = Validator::make(Input::all(), $rules);
 
-      if ($validator->fails()) {
+        if ($validator->fails()) {
             return Redirect::to('/')
                 ->withErrors($validator) // send back all errors to the login form
                 ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
@@ -28,8 +27,8 @@ class UserController extends BaseController
             'password'  => Input::get('password')
         );
 
-    if (Auth::attempt($userdata)) {
-                return Redirect::to('microblogging');
+        if (Auth::attempt($userdata)) {
+            return Redirect::to('microblogging');
         }
 
         return Redirect::to('/')->withErrors(array('invalid_credentials' => 'Acceso Denegado'));
@@ -37,7 +36,6 @@ class UserController extends BaseController
 
     public function register()
     {
-
         $rules = $this->validationRules(); 
         $rules['password'] = 'required|alphaNum|min:3|Confirmed';
         $rules['password_confirmation'] = 'required|alphaNum|min:3'; 
@@ -58,7 +56,6 @@ class UserController extends BaseController
         $alias = Input::get('alias');
         $biography = Input::get('biography');
         $user = new User;
-        //$user->usrs_avatar = $avatar;
         $user->email = $email;
         $user->usrs_nombre = $firstname;
         $user->usrs_apellidos = $lastname;
@@ -124,8 +121,6 @@ class UserController extends BaseController
              }
         return Redirect::to('profile')->withErrors(array('invalid_credentials' => 'Acceso Denegado'));
     }
-   
-
 
     public function isLogged()
     {

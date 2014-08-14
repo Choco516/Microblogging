@@ -2,7 +2,6 @@
 
 <script type="text/javascript"
     src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="js/functions.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
                 $(".panel").fadeIn('slow');
@@ -28,18 +27,7 @@
       h1 {font-family: "Rockwell", serif;font-weight: bold;font-size: 100pt;
       }
     </style>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 <div class='panel'>
          <div class='panel-heading c-list'>
                     <span class='title'><?php echo Auth::user()->usrs_alias; ?>, these are the users that you have blocked... <i class='glyphicon glyphicon-ban-circle'></i></span>
@@ -62,7 +50,6 @@
                             echo"<span class='visible-xs'> <span class='text-muted'>$row->telefono</span><br/></span>";
                             echo"<span class='glyphicon glyphicon-envelope text-muted c-info' data-toggle='tooltip' title='$row->email'></span>";
                             echo"<span class='visible-xs'> <span class='text-muted'>$row->email</span><br/></span>";
-                            
                         echo"</div>";
                         echo"<form action='unlock' method='post' enctype='multipart/form-data'role='form'>";
                           echo"<input name='aliasDest' type='hidden' value='$row->alias'/>";

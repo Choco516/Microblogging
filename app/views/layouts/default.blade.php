@@ -8,7 +8,6 @@
   {{ HTML::style('assets/css/timeline.css', array('media' => 'screen')) }}
   {{ HTML::style('assets/css/menu2.css', array('media' => 'screen')) }}
   {{ HTML::style('assets/css/profile.css', array('media' => 'screen')) }}
-  <!--{{ HTML::style('assets/css/contacts.css', array('media' => 'screen')) }}-->
   {{HTML::script('js/jquery.js');}}
   {{HTML::script('js/contacts.js');}}
 </head>
@@ -27,7 +26,7 @@
     <ul class="nav navbar-default navbar-static-top nav-justified navbar-fixed-top navbar-inverse" role="navigation">
     <li id="home" class="home"><a href="/microblogging" class="flip"><span class="glyphicon glyphicon-home"></span> Home</a></li>
     <li id="profile" class="profile"><a href="/profile" class="flip"> <span class="glyphicon glyphicon-user"></span> Profile</a></li>
-    <li id="People" class="people"><a href="/people" class="flip"><span class="glyphicon glyphicon-globe"></span> People</a></li>
+    <li id="people" class="people"><a href="/people" class="flip"><span class="glyphicon glyphicon-globe"></span> People</a></li>
     <li id="search" class="search">
     <form  action="hashtags" method="post" accept-charset="utf-8" role="form">
     <input type="text" class="input-large search-query" placeholder="Search hashtag" style="width:550px;  margin-left: 15px;" name="hashtag">
@@ -38,8 +37,5 @@
     <li id="lockedUsers" class="lockedUsers"><a href="/lockedUsers" class="flip"><span class="glyphicon glyphicon-ban-circle"></span> Blocked</a></li>
     <li id="logout" class="logout"><a href="/logout" class="flip"><span class="glyphicon glyphicon-log-out"></span> Exit</a></li>
     </ul>
-
-
-    
 </body>
 </html>

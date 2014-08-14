@@ -7,7 +7,6 @@
     {{ HTML::style('assets/css/registrar.css', array('media' => 'screen')) }}
     {{ HTML::style('assets/css/login.css', array('media' => 'screen')) }}
     {{ HTML::style('fonts/css/font-awesome.css', array('media' => 'screen')) }}  
-    
     {{HTML::script('js/jquery.js');}}
 </head>
 <body>
@@ -20,7 +19,5 @@
         background-size: cover;
           } 
     </style>
-
-
 </body>
 </html> 
